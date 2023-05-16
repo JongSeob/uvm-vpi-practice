@@ -9,13 +9,12 @@ del *.o *.dll
 echo "============================================"
 echo "run gcc to create \"libvpi.dll\""
 echo "============================================"
-set "CC=-g -c -m64 -Wall -D__USE_MINGW_ANSI_STDIO=1 -I. -IC:\questasim64_2021.1\include "
-REM set "LD=-shared -lm -m64 $tclflags -Wl,-Bsymbolic -Wl,-export-all-symbols -o "
+set "CC=-D__MINGW32__ -g -c -m64 -Wall -D__USE_MINGW_ANSI_STDIO=1 -I. -IC:\questasim64_2021.1\include "
 set "LD=-shared -lm -m64 -Wl,-Bsymbolic -Wl,-export-all-symbols -o "
 
 gcc %CC% -c vpi_user.c -o vpi_user.o
 gcc %CC% -c hello_vpi.c -o hello_vpi.o
-gcc %LD% libvpi.dll
+gcc %LD% libvpi.dll vpi_user.o hello_vpi.o C:\questasim64_2021.1\win64\mtipli.lib
 
 vlog -writetoplevels questa.tops -timescale 1ns/1ns -L /usr/share/questa/questasim/uvm-1.1d design.sv testbench.sv
 echo "-- Compiling module tb"

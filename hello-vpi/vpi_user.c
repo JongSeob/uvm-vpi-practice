@@ -1,7 +1,7 @@
 #include "vpi_user.h"
 
 /* prototypes of the PLI registration routines */
-extern __declspec(dllexport) void PLIbook_hello_register();
+extern void PLIbook_hello_register();
 
 void (*vlog_startup_routines[])() = 
 {

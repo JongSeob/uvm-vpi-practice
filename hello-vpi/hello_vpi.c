@@ -12,15 +12,15 @@
  *   Contact: www.sutherland-hdl.com
  *********************************************************************/
 
-#include <stdlib.h>    /* ANSI C standard library */
-#include <stdio.h>     /* ANSI C standard input/output library */
-#include <stdarg.h>    /* ANSI C standard arguments library */
+//#include <stdlib.h>    /* ANSI C standard library */
+//#include <stdio.h>     /* ANSI C standard input/output library */
+//#include <stdarg.h>    /* ANSI C standard arguments library */
 #include "vpi_user.h"  /* IEEE 1364 PLI VPI routine library  */
 
 /**********************************************************************
  * calltf routine
  *********************************************************************/
-__declspec(dllexport) PLI_INT32 PLIbook_hello_calltf(PLI_BYTE8 *user_data)
+PLI_INT32 PLIbook_hello_calltf(PLI_BYTE8 *user_data)
 {
   vpi_printf("\nHello Questa VPI!\n\n");
   return(0);
@@ -30,7 +30,7 @@ __declspec(dllexport) PLI_INT32 PLIbook_hello_calltf(PLI_BYTE8 *user_data)
  * $hello Registration Data
  * (add this function name to the vlog_startup_routines array)
  *********************************************************************/
-__declspec(dllexport) void PLIbook_hello_register()
+void PLIbook_hello_register()
 {
   s_vpi_systf_data tf_data;
 
