@@ -1,6 +1,6 @@
 @echo off
 
-call clean.bat
+call ../../clean.bat
 
 vlog -writetoplevels questa.tops -timescale 1ns/1ns design.sv testbench.sv
 echo "-- Compiling module tb"
