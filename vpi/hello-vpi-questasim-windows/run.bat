@@ -1,6 +1,6 @@
 @echo off
-del *.o *.dll
-cls
+
+call clean.bat
 
 echo -----------------------------------------
 echo   Create "libvpi.dll" with MinGW gcc
