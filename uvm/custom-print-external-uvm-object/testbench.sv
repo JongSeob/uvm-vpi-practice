@@ -8,6 +8,7 @@ module tb;
   
   class my_obj_c extends uvm_object;
     
+    // NOTE
     // array	: dynamic array
     // sarray	: static array
     // aa		: associate array
@@ -99,16 +100,16 @@ module tb;
       var_array_object = new[5]({null, null, null, null, null});
       var_array_string = new[5]({"1", "2", "3", "4", "5"});
 
-      var_aa_int_string[10] = "ten";
-      var_aa_int_string[11] = "eleven";
-      var_aa_int_string[20] = "twenty";
+      var_aa_int_string["ten"]    = 10;
+      var_aa_int_string["eleven"] = 11;
+      var_aa_int_string["twenty"] = 20;
 	endfunction: init_properties
         
   endclass
   
   function void my_print(my_obj_c obj);
 	// refer to uvm_1.1d/sv/src/base/uvm_object.svh, Line 875, uvm_object::print
-    uvm_table_printer tprinter = new();
+    automatic uvm_table_printer tprinter = new();
     
     tprinter.print_int        ("var_int",                      obj.var_int, $bits(int), UVM_HEX);
     tprinter.print_real       ("var_real",                     obj.var_real);
@@ -138,14 +139,12 @@ module tb;
     begin
       tprinter.print_array_header ("var_aa_int_string", obj.var_aa_int_string.size(), "aa(int, string)");
       foreach(obj.var_aa_int_string[key])
-        tprinter.print_generic($sformatf("[%0d]", key), "int", $bits(int), $sformatf("'h%0h", obj.var_aa_int_string[key]), "[");
+        tprinter.print_generic($sformatf("[\"%s\"]", key), "int", $bits(int), $sformatf("'h%0h", obj.var_aa_int_string[key]), "[");
       tprinter.print_array_footer ($size(obj.var_aa_int_string));
     end
 
-
     $fwrite(tprinter.knobs.mcd, tprinter.emit());
   endfunction
-
   
   initial begin
     my_obj_c my_obj = new;
