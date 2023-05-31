@@ -1,6 +1,6 @@
 @echo off
 
-call clean.bat
+call "../../clean.bat"
 
 echo -----------------------------------------
 echo   Create "libvpi.dll" with MinGW gcc
@@ -22,6 +22,6 @@ gcc %LD% -o libvpi.dll *.o C:\questasim64_2021.1\win64\mtipli.lib
 echo -----------------------------------------
 echo   Run VPI Sim using "libvpi.dll"
 echo -----------------------------------------
-vlog -writetoplevels questa.tops -timescale 1ns/1ns design.sv testbench.sv
+vlog -writetoplevels questa.tops -timescale 1ns/1ns testbench.sv
 echo -- Running simulation
 vsim tb -batch -do "vsim -voptargs=+acc=npr; run -all; exit" -voptargs="+acc=npr" -pli libvpi.dll
