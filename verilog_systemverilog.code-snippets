@@ -1,0 +1,296 @@
+{
+  // Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+
+  //=================================================
+  // My snippets
+  //=================================================
+
+  //=================================================
+  // VPI Methods defined in vpi_user.h
+  //=================================================
+  // -- print log messages in simulator terminal
+  // -- register tf to simulator
+  // -- vpi object control
+  // -- error
+  // -- traverse object
+  // -- get object property
+  // -- modify simulator data structure
+  // -- tf instance specific storage
+  // -- mcd/fd file control
+  // -- simulator control
+
+  // ===============================================================
+  // -- print log messages in simulator terminal
+  // ===============================================================
+  "vpi_printf": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi printf",
+    "body": ["vpi_printf(\"${1:format}\\n\");"],
+    "description": "print message in simulator console"
+  },
+  "vpi_vprintf": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi vprintf",
+    "body": ["vpi_vprintf(\"${1:messages}\\n\", ${2:arg_list});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- register tf to simulator
+  // ===============================================================
+  "vpi_register_cb": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi register cb",
+    "body": ["vpi_register_cb(&${1:data});"],
+    "description": ""
+  },
+  "vpi_register_systf": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi register systf",
+    "body": ["vpi_register_systf(&${1:data});"],
+    "description": ""
+  },
+  "vpi_remove_cb": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi remove cb",
+    "body": ["vpi_remove_cb(${1:cb_object});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- vpi object control
+  // ===============================================================
+  "vpi_compare_objects": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi compare objects",
+    "body": ["vpi_compare_objects(${1:object1}, ${2:object2});"],
+    "description": ""
+  },
+  "vpi_free_object": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi free object",
+    "body": ["vpi_free_object(${1:handle});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- error
+  // ===============================================================
+  "vpi_chk_error": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi chk error",
+    "body": [
+      "if (vpi_chk_error(&${1:err})) {",
+      "\tvpi_printf(\"Run time error in $${2:pli_application_name} PLI application: \\n\");",
+      "\tvpi_printf(\" Product: %s Code: %s\\n\", ${1}.product, ${1}.code);",
+      "\tvpi_printf(\" Message: %s\\n\", ${1}.message);",
+      "\tif (${1}.file != NULL)",
+      "\t\tvpi_printf(\" File: %s Line: %d\\n\\n\", ${1}.file, ${1}.line);",
+      "}"
+    ],
+    "description": ""
+  },
+  // ===============================================================
+  // -- traverse object
+  // ===============================================================
+  "vpi_handle": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi handle",
+    "body": [
+      "${3:handle} = vpi_handle(${1:type}, ${2:reference});",
+      "if(${3} == NULL)",
+      "{",
+      "\tvpi_printf(\"ERROR: It could not obtain handle to ${1}\");",
+      "\treturn(0)",
+      "}"
+    ],
+    "description": ""
+  },
+  "vpi_handle_by_index": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi handle by index",
+    "body": ["vpi_handle_by_index(${1:parent}, ${2:index});"],
+    "description": ""
+  },
+  "vpi_handle_by_multi_index": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi handle by multi index",
+    "body": [
+      "vpi_handle_by_multi_index(${1:object}, ${2:array_size}, ${3:index_array});"
+    ],
+    "description": ""
+  },
+  "vpi_handle_by_name": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi handle by name",
+    "body": ["vpi_handle_by_name(${1:name}, ${2:scope});"],
+    "description": ""
+  },
+  "vpi_handle_multi": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi handle multi",
+    "body": ["vpi_handle_multi(${1:type}, ${2:reference1}, ${3:references});"],
+    "description": ""
+  },
+  "vpi_iterate": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi iterate",
+    "body": ["${3:iterator} = vpi_iterate(${1:type}, ${2:reference});"],
+    "description": ""
+  },
+  "vpi_scan": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi scan",
+    "body": ["vpi_scan(${1:iterator});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- get object property
+  // ===============================================================
+  "vpi_get": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get",
+    "body": ["vpi_get(${1:property}, ${2:object});"],
+    "description": ""
+  },
+  "vpi_get_cb_info": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get cb info",
+    "body": ["vpi_get_cb_info(${1:object}, &${2:data});"],
+    "description": ""
+  },
+  "vpi_get_data": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get data",
+    "body": ["vpi_get_data(${1:id}, &${2:data_addr}, ${3:byte_count});"],
+    "description": ""
+  },
+  "vpi_get_delays": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get delays",
+    "body": ["vpi_get_delays(${1:object}, &${2:delay});"],
+    "description": ""
+  },
+  "vpi_get_str": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get str",
+    "body": ["vpi_get_str(${1:property}, ${2:object});"],
+    "description": ""
+  },
+  "vpi_get_systf_info": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get systf info",
+    "body": ["vpi_get_systf_info(${1:object}, &${2:data});"],
+    "description": ""
+  },
+  "vpi_get_time": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get time",
+    "body": ["vpi_get_time(${1:object}, &${2:time});"],
+    "description": ""
+  },
+  "vpi_get_value": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get value",
+    "body": ["vpi_get_value(${1:object}, &${2:value});"],
+    "description": ""
+  },
+  "vpi_get_vlog_info": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get vlog info",
+    "body": ["vpi_get_vlog_info(&${1:info});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- modify simulator data structure
+  // ===============================================================
+  "vpi_put_data": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi put data",
+    "body": ["vpi_put_data(${1:id}, &${2:data_addr}, ${3:byte_count});"],
+    "description": ""
+  },
+  "vpi_put_delays": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi put delays",
+    "body": ["vpi_put_delays(${1:object}, &${2:delay});"],
+    "description": ""
+  },
+  "vpi_put_value": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi put value",
+    "body": ["vpi_put_value(${1:object}, &${2:value}, &${3:time}, ${4:flag});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- tf instance specific storage
+  // ===============================================================
+  "vpi_get_userdata": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi get userdata",
+    "body": ["vpi_get_userdata(${1:tfcall});"],
+    "description": ""
+  },
+  "vpi_put_userdata": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi put userdata",
+    "body": ["vpi_put_userdata(${1:tfcall}, &${2:data});"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- mcd/fd file control
+  // ===============================================================
+  "vpi_mcd_close": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd close",
+    "body": ["vpi_mcd_close(${1:mcd_or_fd});"],
+    "description": ""
+  },
+  "vpi_mcd_flush": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd flush",
+    "body": ["vpi_mcd_flush(${1:mcd_or_fd});"],
+    "description": ""
+  },
+  "vpi_mcd_name": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd name",
+    "body": ["vpi_mcd_name(${1:mcd_or_fd});"],
+    "description": ""
+  },
+  "vpi_mcd_open": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd open",
+    "body": ["vpi_mcd_open(${1:file_name});"],
+    "description": ""
+  },
+  "vpi_mcd_printf": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd printf",
+    "body": ["vpi_mcd_printf(${1:mcd}, \"${2:}\");"],
+    "description": ""
+  },
+  "vpi_mcd_vprintf": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi mcd vprintf",
+    "body": ["vpi_mcd_vprintf(${1:mcd_or_fd}, \"${2:}\", ${3:arg_list});"],
+    "description": ""
+  },
+  "vpi_flush": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi flush",
+    "body": ["vpi_flush();"],
+    "description": ""
+  },
+  // ===============================================================
+  // -- simulator control
+  // ===============================================================
+  "vpi_control": {
+    "scope": "verilog , systemverilog",
+    "prefix": "vpi control",
+    "body": ["vpi_control(${1:operation}, ${2});"],
+    "description": ""
+  }
+}
